@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Letter to someone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg1: #2c0d19;
+        --bg2: #5a1731;
+        --rose-dark: #8f2146;
+        --paper1: #fff7f0;
+        --paper2: #f4e5d7;
+        --ink: #6a2741;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            circle at top,
+            rgba(255, 160, 190, 0.14),
+            transparent 30%
+          ),
+          linear-gradient(180deg, var(--bg1), var(--bg2) 55%, #18050d 100%);
+        overflow-x: hidden;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: -40px;
+        color: rgba(255, 180, 205, 0.2);
+        animation: floatUp linear infinite;
+        font-size: 22px;
+      }
+
+      .heart:nth-child(1) {
+        left: 8%;
+        animation-duration: 16s;
+        animation-delay: 0s;
+      }
+      .heart:nth-child(2) {
+        left: 20%;
+        animation-duration: 21s;
+        animation-delay: 2s;
+      }
+      .heart:nth-child(3) {
+        left: 32%;
+        animation-duration: 18s;
+        animation-delay: 6s;
+      }
+      .heart:nth-child(4) {
+        left: 46%;
+        animation-duration: 24s;
+        animation-delay: 1s;
+      }
+      .heart:nth-child(5) {
+        left: 58%;
+        animation-duration: 19s;
+        animation-delay: 5s;
+      }
+      .heart:nth-child(6) {
+        left: 70%;
+        animation-duration: 23s;
+        animation-delay: 4s;
+      }
+      .heart:nth-child(7) {
+        left: 82%;
+        animation-duration: 17s;
+        animation-delay: 7s;
+      }
+      .heart:nth-child(8) {
+        left: 92%;
+        animation-duration: 22s;
+        animation-delay: 3s;
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) translateX(0) scale(0.8);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-120vh) translateX(18px) scale(1.15);
+          opacity: 0;
+        }
+      }
+
+      .hero {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .open-card {
+        width: min(520px, 100%);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        border-radius: 28px;
+        padding: 28px 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .seal {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 34px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #ff89ac,
+          var(--rose-dark)
+        );
+        box-shadow:
+          inset 0 4px 10px rgba(255, 255, 255, 0.25),
+          0 14px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .open-card h1 {
+        margin: 0;
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(2.7rem, 7vw, 4.5rem);
+        font-weight: 400;
+      }
+
+      .open-card p {
+        margin: 12px auto 0;
+        max-width: 390px;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1rem;
+      }
+
+      .open-btn {
+        margin-top: 24px;
+        border: none;
+        border-radius: 999px;
+        padding: 14px 24px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: white;
+        background: linear-gradient(135deg, #ff6e9c, #b92d5b);
+        box-shadow: 0 14px 28px rgba(185, 45, 91, 0.35);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .open-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px rgba(185, 45, 91, 0.42);
+      }
+
+      .scroll-scene {
+        position: relative;
+        z-index: 1;
+        padding: 0 16px 80px;
+        opacity: 0;
+        transform: translateY(60px);
+        pointer-events: none;
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+
+      body.opened .scroll-scene {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .scroll-shell {
+        width: min(860px, 100%);
+        margin: 0 auto;
+        position: relative;
+        padding: 42px 0 56px;
+      }
+
+      .rod {
+        position: sticky;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: calc(100% - 30px);
+        max-width: 760px;
+        height: 22px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #c4945e, #7a4c20);
+        box-shadow:
+          inset 0 2px 4px rgba(255, 255, 255, 0.24),
+          inset 0 -2px 4px rgba(0, 0, 0, 0.24),
+          0 12px 24px rgba(0, 0, 0, 0.22);
+        z-index: 5;
+      }
+
+      .rod.top {
+        top: 12px;
+      }
+
+      .rod.bottom {
+        bottom: 12px;
+        margin-top: -22px;
+      }
+
+      .rod::before,
+      .rod::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        background: radial-gradient(circle at 30% 30%, #e8c594, #895420 70%);
+      }
+
+      .rod::before {
+        left: -10px;
+      }
+
+      .rod::after {
+        right: -10px;
+      }
+
+      .paper-viewport {
+        width: min(760px, 100%);
+        margin: 0 auto;
+        position: relative;
+        filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.28));
+      }
+
+      .paper {
+        position: relative;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.38),
+            rgba(255, 255, 255, 0) 14%
+          ),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0 33px,
+            rgba(172, 109, 127, 0.12) 33px 34px
+          ),
+          linear-gradient(180deg, var(--paper1), var(--paper2));
+        color: var(--ink);
+        border-radius: 18px;
+        padding: 78px 36px 86px;
+        min-height: 88vh;
+        transform-origin: top center;
+        transform: scaleY(0.03);
+        transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        overflow: hidden;
+      }
+
+      body.opened .paper {
+        transform: scaleY(1);
+      }
+
+      .paper::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle at top center,
+            rgba(255, 170, 190, 0.18),
+            transparent 25%
+          ),
+          radial-gradient(
+            circle at bottom center,
+            rgba(255, 209, 166, 0.15),
+            transparent 25%
+          );
+        pointer-events: none;
+      }
+
+      .paper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        border-radius: 18px;
+        box-shadow:
+          inset 0 0 0 1px rgba(126, 71, 84, 0.08),
+          inset 0 20px 35px rgba(255, 255, 255, 0.2);
+      }
+
+      .letter {
+        position: relative;
+        z-index: 1;
+        text-align: left;
+      }
+
+      .mini-title {
+        color: #a44562;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .main-title {
+        margin: 0;
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(3rem, 7vw, 5rem);
+        color: #b1315e;
+        line-height: 1.05;
+        font-weight: 400;
+      }
+
+      .meta {
+        margin-top: 28px;
+        text-align: left;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+        color: #7d334c;
+        line-height: 1.5;
+      }
+
+      .message {
+        margin: 24px 0 0;
+        width: 100%;
+        text-align: justify;
+        text-align-last: left;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+        line-height: 2rem;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: break-word;
+        letter-spacing: 0.01em;
+      }
+
+      .signature {
+        margin-top: 28px;
+        text-align: right;
+      }
+
+      .signature .love {
+        font-family: "Cormorant Garamond", serif;
+        color: #8a3752;
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+      }
+
+      .signature .name {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(2.4rem, 5vw, 3.4rem);
+        color: #b1315e;
+        line-height: 1;
+      }
+
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 0%;
+        background: linear-gradient(90deg, #ff7ea8, #ffd4e1);
+        z-index: 20;
+      }
+
+      .paper-mask-top,
+      .paper-mask-bottom {
+        position: sticky;
+        height: 40px;
+        width: min(760px, 100%);
+        margin: 0 auto;
+        z-index: 4;
+        pointer-events: none;
+      }
+
+      .paper-mask-top {
+        top: 34px;
+        background: linear-gradient(
+          180deg,
+          rgba(244, 229, 215, 0.98),
+          rgba(244, 229, 215, 0)
+        );
+        margin-bottom: -40px;
+      }
+
+      .paper-mask-bottom {
+        bottom: 34px;
+        background: linear-gradient(
+          0deg,
+          rgba(244, 229, 215, 0.98),
+          rgba(244, 229, 215, 0)
+        );
+        margin-top: -40px;
+      }
+
+      @media (max-width: 700px) {
+        .paper {
+          padding: 68px 22px 74px;
+        }
+
+        .open-card {
+          padding: 24px 18px;
+        }
+
+        .message {
+          font-size: 1.35rem;
+          line-height: 1.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <div class="hearts" aria-hidden="true">
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+      <span class="heart">❤</span>
+    </div>
+
+    <section class="hero" id="hero">
+      <div class="open-card">
+        <div class="seal">❤</div>
+        <h1>Reserved for Angelina Pulmano</h1>
+        <p>Happy Birthday!! my most favorite human being.</p>
+        <button class="open-btn" id="openBtn">Open Letter</button>
+      </div>
+    </section>
+
+    <section class="scroll-scene" id="letterSection">
+      <div class="scroll-shell">
+        <div class="rod top"></div>
+        <div class="paper-mask-top"></div>
+
+        <div class="paper-viewport">
+          <article class="paper">
+            <div class="letter">
+              <div class="mini-title">From your minamahal hehehe</div>
+              <h1 class="main-title">
+                A Birthday Letter to the one who makes my world brighter
+                (Angelina Pulmano)
+              </h1>
+
+              <div class="meta">
+                <div><strong>Date:</strong> February 29, 2026</div>
+                <div><strong>To:</strong> My Babyy</div>
+                <div style="margin-top: 10px"></div>
+              </div>
+
+              <div class="message" id="letterMessage">
+                Happy birthday Bubba!! Today is all about you para sakin, and
+                gusto ko talagang maramdaman mo kung gaano ka ka special hindi
+                lang ngayong araw kundi sa bawat araw na dumadaan. You’re the
+                kind of person na hindi mo kailangang mageffort para mapansin
+                kopo, kasi natural na sayo yun. Yung smile mo pa lang, sapat na
+                para magbago yung mood ng buong araw ko po. Yung way mo
+                magsalita, yung pagiging totoo mo sa sarili mo, at yung simpleng
+                presence mo, lahat yun may impact po sakin na hindi ko maexplain
+                nang buo. Ang sarap lang po kasi isipin na sa dami ng tao sa
+                mundo, ikaw yung nakilala ko and ikaw yung naging favorite ko.
+                <br /><br />
+                Hindi ka lang basta dumaan sa buhay ko, ikaw yung taong gusto
+                kong mag stay, yung taong gusto kong makasama sa araw araw, sa
+                simpleng moments man or even sa mga moments na gusto nating
+                balikan habang buhay. Sana today, mapuno ka ng happiness na
+                hindi pilit, sana makita ko yung happiness na galing talaga sa
+                puso mo. I hope you laugh freely, smile genuinely and maramdaman
+                mo yung love na deserve na deserve mo. You deserve peace, hindi
+                lang sa paligid mo kundi sa isip at puso mo. You deserve people
+                na hindi ka bibitawan, na hindi ka pagdududahan and pipiliin ka
+                araw araw.
+                <br /><br />
+                And habang tinitingnan kita, mas lalo kong nakikita kung gaano
+                ka katatag and kaganda hindi lang sa panlabas kundi lalo na sa
+                kung sino ka bilang tao. You have this rare kind of energy na
+                hindi mo basta basta makikita sa iba, and I hope you never lose
+                that. Sana kahit anong mangyari, manatili kang ikaw, genuine,
+                kind at higit sa lahat maging totoo. Iloveyousomuch. Hindi ko
+                siya sinasabi basta basta lang, sinasabi ko siya kasi ramdam ko
+                siya araw araw. And what makes it even more special is kung
+                paano tayo ngayon, walang pilitan, walang pressure, may
+                connection, and nakkita ko po na may direction.
+                <br /><br />
+                Ang sarap sa pakiramdam na nandito tayo sa point na pinipili
+                natin ung isat isa hindi dahil kailangan kundi dahil gusto
+                natin. Every moment with you matters to me kahit gaano pa kaliit
+                yan. Kahit simpleng usapan, simpleng kulitan, simpleng
+                lambingan, lahat yun nagiging unforgettable kasi ikaw yung
+                kasama ko. And habang tumatagal, mas lalo kong narerealize na
+                hindi lang basta feelings yung meron ako para sayo, kundi
+                something deeper na gusto kong alagaan at palaguin. Gusto kitang
+                pasayahin sa mga paraan na kaya ko, hindi lang sa malalaking
+                bagay kundi lalo na sa maliliit na moments na mas nagiging
+                meaningful.
+                <br /><br />
+                Gusto kong maging reason kung bakit ka napapangiti kahit pagod
+                ka na, kung bakit gumagaan yung pakiramdam mo kahit may
+                pinagdadaanan ka. I want to be someone na kaya mong sandalan,
+                someone na mapagkakatiwalaan mo, at someone na hindi ka iiwan
+                kahit hindi na madali yung sitwasyon. Hindi ko man kayang maging
+                perfect, pero kaya kong maging totoo sayo, consistent sayo, at
+                present sa buhay mo. At para sakin, yun yung mas mahalaga kaysa
+                sa kahit anong salita lang.
+                <br /><br />
+                Habang tumatagal, mas lalo kong naaappreciate lahat tungkol
+                sayo. Yung mga bagay na ginagawa mo na akala mo simple lang,
+                para sakin malaking bagay na. Yung pagiging thoughtful mo, yung
+                care mo, yung way mo magpakita ng pagmamahal, even in the
+                smallest ways, lahat yun nakikita ko at pinapahalagahan ko.
+                Hindi mo man napapansin minsan, pero you make people feel seen,
+                you make people feel important, at isa ako sa mga taong sobrang
+                swerte na maramdaman yun galing po sayo. And I hope kahit
+                papaano, napaparamdam ko rin sayo kung gaano ka kaimportante
+                sakin.
+                <br /><br />
+                Sa birthday mo ngayon gusto ko lang po na ienjoy mo lahat. Take
+                your time, feel the moment, and just be happy. Celebrate
+                yourself, celebrate kung sino ka, at celebrate yung journey mo.
+                Youve grown so much and I’m really proud of you. Proud ako sa
+                strength mo, sa courage mo, at sa way mo harapin yung buhay
+                kahit hindi laging madali. And habang ginagawa mo yun tandaan mo
+                na may isang tao dito na sobrang saya na ikaw yung kasama niya
+                ngayon sa buhay niya. Someone na pipili po sayo hindi lang
+                ngayon kundi araw araw.
+                <br /><br />
+                Happy birthday ulit Bubba. Thank you for being you, thank you
+                for staying, at thank you dahil ikaw yung nagbibigay kulay sa
+                buhay ko sa mga paraang hindi ko inexpect. Also habang ginagawa
+                kopo ito idk kung bakit naiiyak ako pero happy naman ako na
+                ganto, atleast sa gantong way, while im writing this code and
+                while im writing this letter nakkita ko kung gano ako kasincer
+                or kaseryoso sa nararamdaman kopo sayo, nakikita ko na totoo ako
+                and masaya akong gianagawa koto ng buong puso kopo.
+                <br /><br />
+                I Hope ngayong 18 kana mas marami kapa maexplore and maging part
+                ako ng journer mo lalo na ngayong papasok na tayo sa college. I
+                know madaming mocconsume sa time nating dalawa because of it
+                pero one thing for sure po, I will do my best na samahan ka sa
+                lahat ng paghhirap mo and sa buong journey mopo kahit anong
+                mangyari. Sa dami ng pwedeng mangyari sa future isa lang ang
+                sigurado ko, ikaw pa rin yung gusto kong kasama sa lahat. Mahal
+                na mahal kita, at hinding hindi yun magbabago. Always.
+                Iloveyousomsososomuch!!
+              </div>
+
+              <div class="signature">
+                <div class="love">
+                  This letter is written with all my heart,
+                </div>
+                <div class="name">-Eosef DelaTorre</div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="paper-mask-bottom"></div>
+        <div class="rod bottom"></div>
+      </div>
+    </section>
+
+    <script>
+      const openBtn = document.getElementById("openBtn");
+      const letterSection = document.getElementById("letterSection");
+      const progress = document.getElementById("scrollProgress");
+
+      openBtn.addEventListener("click", () => {
+        document.body.classList.add("opened");
+        setTimeout(() => {
+          letterSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 350);
+      });
+
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progress.style.width = percent + "%";
+      }
+
+      window.addEventListener("scroll", updateScrollProgress);
+      updateScrollProgress();
+    </script>
+  </body>
+</html>
